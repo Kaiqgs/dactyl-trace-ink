@@ -18,3 +18,5 @@ target_link_libraries(keyboard PUBLIC glm_static)
 target_link_libraries(keyboard PUBLIC util)
 target_include_directories(keyboard PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(keyboard PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/util)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

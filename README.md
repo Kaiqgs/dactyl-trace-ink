@@ -1,18 +1,17 @@
-# Dactyl Tracer
+# Dactyl Trace-Ink
 
-This is built similarly to the [Dactyl CC](https://github.com/mjohns/dactyl-cc). The layout is more similar to the Dactyl Manuform in the the rows spacing and first few thumb keys. The 'q' key is offset from 'a' to be better hit with the ring finger.
+A wireless, Dactyl Tracer with e-ink display.
 
-![image](https://imgur.com/ReCBppE.jpg)
+This is built similarly to the [Dactyl Tracer](https://github.com/mjohns/tracer). I just want run it with ZMK wireless, so no TRRS and added other e-ink mounts.
 
 To build run:
-
 ```
 cd build
 cmake ../src
 make && ./keyboard
 ```
-![image](https://imgur.com/uMtgnuC.jpg)
 
-[more images](https://imgur.com/a/5PrbSRg)
-
-
+Iterate on it watching for changes:
+```
+air
+```
