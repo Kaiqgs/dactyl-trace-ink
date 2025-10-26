@@ -54,7 +54,7 @@ int main() {
   if (kWriteTestKeys) {
     std::vector<Shape> test_shapes;
     std::vector<Key*> test_keys;
-     test_keys = d.all_keys();
+    test_keys = d.all_keys();
     for (Key* key : test_keys) {
       key->add_side_nub = false;
       key->add_top_nub = false;
@@ -70,8 +70,7 @@ int main() {
       test_shapes.push_back(dactyl_manuform.Color("green", .6));
       //  test_shapes.push_back(dactyl_cc.Color("blue", .3));
     }
-    UnionAll(test_shapes)
-        .WriteToFile("test_keys.scad");
+    UnionAll(test_shapes).WriteToFile("build/test_keys.scad");
     return 0;
   }
 
@@ -468,16 +467,17 @@ int main() {
     usb_location.y += 4;
     Shape c = Cylinder(8, 2.5, 30).RotateX(90).Translate(usb_location);
     Shape usb_hole = Hull(c, c.Projection().LinearExtrude(.1));
-    result.Subtract(usb_hole).MirrorX().WriteToFile("right.scad");
+    result
+        // .Subtract(usb_hole)
+        .MirrorX().WriteToFile("build/right.scad");
 
     double thick = 3.8;
-    Shape front = Cube(4.8, thick, 7).TranslateZ(7/2);
-    Shape back = Cube(8, 2, 7.5).TranslateZ(7.5/2).TranslateY(thick/2 + .5);
-  
-    Shape c2 = Cylinder(8, 2.5, 30).RotateX(90).TranslateZ(6);
-    Union(front, back).Subtract(c2).WriteToFile("usb_holder.scad");
-  }
+    Shape front = Cube(4.8, thick, 7).TranslateZ(7 / 2);
+    Shape back = Cube(8, 2, 7.5).TranslateZ(7.5 / 2).TranslateY(thick / 2 + .5);
 
+    Shape c2 = Cylinder(8, 2.5, 30).RotateX(90).TranslateZ(6);
+    Union(front, back).Subtract(c2).WriteToFile("build/usb_holder.scad");
+  }
 
   // Bottom plate
   {
@@ -490,12 +490,12 @@ int main() {
         UnionAll(bottom_plate_shapes).Projection().LinearExtrude(1.5).TranslateZ(1.5 / 2);
 
     Shape bottom_plate_screws = bottom_plate.Subtract(UnionAll(screw_holes));
-    bottom_plate_screws.WriteToFile("bottom_left.scad");
-    bottom_plate_screws.MirrorX().WriteToFile("bottom_right.scad");
+    bottom_plate_screws.WriteToFile("build/bottom_left.scad");
+    bottom_plate_screws.MirrorX().WriteToFile("build/bottom_right.scad");
 
     bottom_plate = bottom_plate + UnionAll(screw_pegs);
-    bottom_plate.WriteToFile("bottom_v2_left.scad");
-    bottom_plate.MirrorX().WriteToFile("bottom_v2_right.scad");
+    bottom_plate.WriteToFile("build/bottom_v2_left.scad");
+    bottom_plate.MirrorX().WriteToFile("build/bottom_v2_right.scad");
   }
 
   return 0;
