@@ -441,21 +441,6 @@ int main() {
     usbc.WriteToFile("build/usbc.scad");
   }
 
-  // Cut out holes for cords. Inserts can be printed to fit in.
-  /* Shape trrs_hole = Cylinder(20, 5, 30).RotateX(90); */
-  /* glm::vec3 trrs_hole_location = d.key_r.GetTopRight().Apply(kOrigin); */
-  /* trrs_hole_location.z = 11; */
-  /* trrs_hole_location.x -= 5; */
-  /* negative_shapes.push_back(trrs_hole.Translate(trrs_hole_location)); */
-  /**/
-  /* { */
-  /**/
-  /*   Shape bottom = Cube(5, 1.5, 8).TranslateZ(8/2).TranslateY((-5.3 / 2) + (-1.5 / 2)); */
-  /*   Shape c = Cylinder(2.5, 8, 30).TranslateZ(2.5 / 2); */
-  /*   Shape cut = Cube(6.3, 5.3, 8); */
-  /*   Union(bottom, c).Subtract(cut).WriteToFile("build/trrs.scad"); */
-  /* } */
-
   Shape result = UnionAll(shapes);
   // Subtracting is expensive to preview and is best to disable while testing.
   result = result.Subtract(UnionAll(negative_shapes));
