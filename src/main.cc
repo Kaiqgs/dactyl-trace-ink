@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+#include "glm/ext/vector_float3.hpp"
 #include "key.h"
 #include "key_data.h"
 #include "scad.h"
@@ -9,10 +10,14 @@
 
 using namespace scad;
 
+#define WALL_MM 2
+
 constexpr bool kWriteTestKeys = false;
 constexpr bool kIncludeDactylRef = false;
 // Add the caps into the stl for testing.
 constexpr bool kAddCaps = false;
+const glm::vec3 USBcDimensions = glm::vec3(9, 15, 3.3);
+/* const glm::vec3 USBcDimensions = glm::vec3(3.3, 9, 9); */
 
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
@@ -20,6 +25,18 @@ void AddShapes(std::vector<Shape>* shapes, std::vector<Shape> to_add) {
   for (Shape s : to_add) {
     shapes->push_back(s);
   }
+}
+
+Shape UsbC(glm::vec3 dimensions) {
+  Shape usbc_right_cyl = Cylinder(dimensions.y, dimensions.z / 2, 300)
+                             .Translate(glm::vec3(-dimensions.x / 2, 0, 0))
+                             .RotateX(90);
+  Shape usbc_left_cyl = Cylinder(dimensions.y, dimensions.z / 2, 300)
+                            .Translate(glm::vec3(dimensions.x / 2, 0, 0))
+                            .RotateX(90);
+  Shape usbc_cube = Cube(dimensions.x, dimensions.y, dimensions.z);
+  Shape usbc = Union(usbc_right_cyl, usbc_left_cyl, usbc_cube);
+  return usbc;
 }
 
 Shape ConnectMainKeys(KeyData& d);
